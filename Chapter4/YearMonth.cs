@@ -9,7 +9,7 @@ namespace Chapter4 {
         //4.1.1
         public int Year { get; private set; }
         public int Month { get; private set; }
-
+        
         public YearMonth(int year,int month) {
             Year = year;
             Month = month;
@@ -25,18 +25,17 @@ namespace Chapter4 {
         //4.1.3
         //AddOneMonth()メソッドを追加
         public YearMonth AddMonth() {
-            var yearmonth = new YearMonth(Year,Month+1);
-            if(Month == 13) {
-                Year++;
-                Month = 1;
-            }
-            return yearmonth;
+            if(this.Month == 12) {
+                return new YearMonth(this.Year + 1, 1);
+            } else {
+                return new YearMonth(this.Year, this.Month + 1);
+            } 
         }
 
         //4.1.4
         //Tostring()メソッドのオーバーライド
         public override string ToString() {
-            return "2017年8月";
-        }
+            return $"{Year}年{Month}月";
+        }     
     }
 }
