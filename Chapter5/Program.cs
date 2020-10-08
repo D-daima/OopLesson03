@@ -75,10 +75,10 @@ namespace Chapter5 {
             var target = "Novelist=谷崎潤一郎;BestWork=春琴沙;Born=1886";            
             foreach(var item in target.Split(';')) {
                 var wd = item.Split('=');
-                Console.WriteLine("{0}:{1}", Tojapanese(wd[0]), wd[1]);
+                Console.WriteLine("{0}:{1}", ToJapanese(wd[0]), wd[1]);
             }
         }
-        static string Tojapanese(string key) {
+        static string ToJapanese(string key) {
             switch(key) {
                 case "Novelist":
                     return "作家　";
@@ -87,7 +87,7 @@ namespace Chapter5 {
                 case "Born":
                     return "誕生年";
                 default:
-                    return "        ";
+                    return "      ";
             }
         }
     }
