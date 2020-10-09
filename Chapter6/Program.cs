@@ -9,39 +9,29 @@ using System.Threading.Tasks;
 namespace Chapter6 {
     class Program {
         static void Main(string[] args) {
-
-            //整数の例
-            var numbers = new List<int> { 19, 17, 15, 24, 12, 25, 14, 20, 12, 28, 19, 30, 24 };
-            //var strings = numbers.Distinct().ToArray();
-            //foreach(var str in strings) {
-            //    Console.Write(str + " ");
-            //}
-            numbers.Select(n => n.ToString("0000")).Distinct().ToList().ForEach(s => Console.Write(s + " "));
-            Console.WriteLine("\n\n---------------");
-
-            var sortedNumbers = numbers.OrderBy(n => n).Distinct();
-            foreach(var nums in sortedNumbers) {
-                Console.Write(nums + " ");
+            var numbers = new int[] { 5, 10, 17, 9, 3, 21, 10, 40, 21, 3, 35 };
+            //6.1.1
+            Console.WriteLine($"最大値：{numbers.Max()}");
+            Console.WriteLine("\n------------");
+            //6.1.2
+            numbers.Reverse().Take(2).Reverse().ToList().ForEach(s=>Console.Write(s + " "));
+            Console.WriteLine("\n\n------------");
+            //6.1.3
+            foreach(var number in numbers) {
+                Console.Write(number.ToString() + " ");
             }
-            Console.WriteLine("\n\n---------------");
+            Console.WriteLine("\n\n------------");
 
-            //文字列の例
-            var words = new List<string>{
-                "Microsoft","Apple","Google","Oracle","Facebook",};
-            var lower = words.Select(name => name.ToLower()).ToArray();
-            //オブジェクトの例
-            var books = Books.GetBooks();
-            //タイトルリスト
-            var titles = books.Select(x => x.Title);
-            foreach(var title in titles) {
-                Console.Write(title + " ");
+            //6.1.4
+            var line = numbers.OrderBy(n => n).Take(3);
+            foreach(var item in line) {
+                Console.Write(item + " ");
             }
-            Console.WriteLine("\n\n---------------");
-            //ページ数の多い順に並べ替え（または金額の高い順）
-            var sortedPages = books.OrderByDescending(x => x.Pages).Take(3);
-            foreach(var sortedPage in sortedPages) {
-                Console.WriteLine($"{sortedPage.Title} : {sortedPage.Pages}ページ");
-            }
+            Console.WriteLine("\n\n------------");
+
+            //6.1.5
+            numbers.Distinct().Where(n => n > 10).ToList().ForEach(s => Console.Write(s + " "));
+            Console.WriteLine("\n\n------------");
         }
     }
 }
