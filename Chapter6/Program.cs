@@ -9,29 +9,92 @@ using System.Threading.Tasks;
 namespace Chapter6 {
     class Program {
         static void Main(string[] args) {
+            #region 6.1
             var numbers = new int[] { 5, 10, 17, 9, 3, 21, 10, 40, 21, 3, 35 };
             //6.1.1
+            Console.WriteLine("問題6.1.1");
             Console.WriteLine($"最大値：{numbers.Max()}");
             Console.WriteLine("\n------------");
             //6.1.2
-            numbers.Reverse().Take(2).Reverse().ToList().ForEach(s=>Console.Write(s + " "));
+            //numbers.Reverse().Take(2).Reverse().ToList().ForEach(s=>Console.Write(s + " "));
+            Console.WriteLine("問題6.1.2");
+            int pos = numbers.Length - 2;
+            foreach(var num in numbers.Skip(pos)) {
+                Console.Write(num + " ");
+            }
             Console.WriteLine("\n\n------------");
             //6.1.3
-            foreach(var number in numbers) {
-                Console.Write(number.ToString() + " ");
-            }
+            Console.WriteLine("問題6.1.3");
+            numbers.Select(n => n.ToString()).ToList().ForEach(s => Console.Write(s + " "));
             Console.WriteLine("\n\n------------");
 
             //6.1.4
-            var line = numbers.OrderBy(n => n).Take(3);
-            foreach(var item in line) {
+            Console.WriteLine("問題6.1.4");
+            foreach(var item in numbers.OrderBy(n => n).Take(3)) {
                 Console.Write(item + " ");
             }
             Console.WriteLine("\n\n------------");
 
             //6.1.5
-            numbers.Distinct().Where(n => n > 10).ToList().ForEach(s => Console.Write(s + " "));
+            Console.WriteLine("問題6.1.5");
+            Console.WriteLine(numbers.Distinct().Count(n => n > 10));
             Console.WriteLine("\n\n------------");
+            #endregion
+
+            var books = new List<Book> {
+                new Book { Title = "C#プログラミングの新常識", Price = 3800, Pages = 378 },
+                new Book { Title = "ラムダ式とLINQの極意", Price = 2500, Pages = 312 },
+                new Book { Title = "ワンダフル・C#ライフ", Price = 2900, Pages = 385 },
+                new Book { Title = "一人で学ぶ並列処理プログラミング", Price = 4800, Pages = 464 },
+                new Book { Title = "フレーズで覚えるC#入門", Price = 5300, Pages = 604 },
+                new Book { Title = "私でも分かったASP.NET MVC", Price = 3200, Pages = 453 },
+                new Book { Title = "楽しいC#プログラミング教室", Price = 2540, Pages = 348 },
+            };
+
+            //6.2.1
+            Console.WriteLine("問題6.2.1");
+            var book = books.Where(x => x.Title == "ワンダフル・C#ライフ");
+            foreach(var item in book) {
+                Console.WriteLine($"金額：{item.Price}");
+                Console.WriteLine($"ページ：{item.Pages}");
+            }
+            Console.WriteLine("\n------------");
+
+            //6.2.2
+            Console.WriteLine("問題6.2.2");
+            var count = books.Count(x => x.Title.Contains("C#"));
+            Console.WriteLine($"{count}冊");
+            Console.WriteLine("\n------------");
+
+            //6.2.3
+            Console.WriteLine("問題6.2.3");
+            var avg = books.Where(x => x.Title.Contains("C#")).Average(x => x.Pages);
+            Console.WriteLine($"タイトルにC#が含まれる書籍の平均ページ：{avg}ページ");
+            Console.WriteLine("\n------------");
+
+            //6.2.4
+            Console.WriteLine("問題6.2.4");
+            var obj =  books.FirstOrDefault(x => x.Price >= 4000);
+            Console.WriteLine($"タイトル：{obj.Title}");
+            Console.WriteLine("\n------------");
+
+            //6.2.5
+            Console.WriteLine("問題6.2.5");
+            Console.WriteLine($"最大{books.Where(x => x.Price < 4000).Max(x => x.Pages)}ページ");
+            Console.WriteLine("\n------------");
+
+            //6.2.6
+            Console.WriteLine("問題6.2.6");
+            var odPrices = books.Where(x => x.Pages >= 400).OrderByDescending(x => x.Price);
+            foreach(var odPrice in odPrices) {
+                Console.WriteLine($"タイトル：{odPrice.Title}");
+                Console.WriteLine($"価格：{odPrice.Price}");
+            }
+            Console.WriteLine("\n------------");
+
+            //6.2.7
+            Console.WriteLine("問題6.2.7");
+            books.Where(x => x.Title.Contains("C#") && x.Pages <= 500).ToList().ForEach(s => Console.WriteLine(s.Title));
         }
     }
 }
