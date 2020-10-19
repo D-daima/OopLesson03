@@ -116,8 +116,9 @@ namespace Chapter7 {
             Console.WriteLine($"用語数：{count}");
             Console.WriteLine();
 
-            //7.2.4　三文字の省略語
-            abbrs.Search();
+            foreach(var item in abbrs.Where(x => x.Key.Length == 3)) {
+                Console.WriteLine($"{item.Key}={item.Value}");
+            }            
         }
         #region 問題7.1
         //static void Exercise1_1(string text) {
