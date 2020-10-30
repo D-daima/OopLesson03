@@ -19,7 +19,7 @@
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="90*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="件名:" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontSize="20"/>
+        <TextBlock Text="件名:" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" FontSize="20"/>
         <TextBox Grid.Row="0" Grid.Column="1" Margin="5"/>
 
         <TextBlock Text="To:" Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Center" FontSize="20"/>
