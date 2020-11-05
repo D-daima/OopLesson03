@@ -41,9 +41,21 @@ namespace SendMailApp {
         private void btOk_Click(object sender, RoutedEventArgs e) {
             try {
                 MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text);
-
+                
                 msg.Subject = tbTitle.Text;//件名
                 msg.Body = tbBody.Text;//本文
+
+                msg.To.Add(tbTo.Text);
+
+                var cc = tbCc.Text.Split(',');
+                foreach(var item in cc) {
+                    msg.CC.Add(item);
+                }
+
+                var bcc = tbBcc.Text.Split(',');
+                foreach(var item in bcc) {
+                    msg.Bcc.Add(item);
+                }
 
                 sc.Host = "smtp.gmail.com";//SMTPサーバーの設定
                 sc.Port = 587;
