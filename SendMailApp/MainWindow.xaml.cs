@@ -44,7 +44,8 @@ namespace SendMailApp {
                 
                 msg.Subject = tbTitle.Text;//件名
                 msg.Body = tbBody.Text;//本文
-
+                //msg.CC.Add(tbCc.Text);
+                //msg.Bcc.Add(tbBcc.Text);
 
                 if(tbCc.Text != "") {
                     var cc = tbCc.Text.Split(',');
