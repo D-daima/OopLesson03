@@ -45,16 +45,19 @@ namespace SendMailApp {
                 msg.Subject = tbTitle.Text;//件名
                 msg.Body = tbBody.Text;//本文
 
-                msg.To.Add(tbTo.Text);
 
-                var cc = tbCc.Text.Split(',');
-                foreach(var item in cc) {
-                    msg.CC.Add(item);
+                if(tbCc.Text != "") {
+                    var cc = tbCc.Text.Split(',');
+                    foreach(var item in cc) {
+                        msg.CC.Add(item);
+                    }
                 }
 
-                var bcc = tbBcc.Text.Split(',');
-                foreach(var item in bcc) {
-                    msg.Bcc.Add(item);
+                if(tbBcc.Text != "") {
+                    var bcc = tbBcc.Text.Split(',');
+                    foreach(var item in bcc) {
+                        msg.Bcc.Add(item);
+                    }
                 }
 
                 sc.Host = "smtp.gmail.com";//SMTPサーバーの設定
