@@ -24,7 +24,8 @@ namespace SendMailApp {
         public string PassWord { get; set; } //パスワード
         public int Port { get; set ; }　//ポート番号
         public bool Ssl { get; set; }　//SSL設定
-                
+        
+        
         //コンストラクタ(外部からnewできないようにする)
         private Config() {
 
@@ -64,22 +65,25 @@ namespace SendMailApp {
         }
 
         public void Serialise() { //シリアル化
-            using(var writer = XmlWriter.Create("Config.xml")) {
-                var serializer = new XmlSerializer(instance.GetType());
-                serializer.Serialize(writer,instance);
+            try {
+                using(var writer = XmlWriter.Create("Config.xml")) {
+                    var serializer = new XmlSerializer(instance.GetType());
+                    serializer.Serialize(writer, instance);
+                }
+            } catch(Exception) {
             }
+            
         }
 
         public void DeSerialise() { //逆シリアル化
-            using(var reader = XmlReader.Create("Config.xml")) {
-                var serializer = new XmlSerializer(typeof(Config));
-                var config = serializer.Deserialize(reader) as Config;
-                Smtp = config.Smtp;
-                Port = config.Port;
-                MailAddress = config.MailAddress;
-                Ssl = config.Ssl;
-                PassWord = config.PassWord;
+            try {
+                using(var reader = XmlReader.Create("Config.xml")) {
+                    var serializer = new XmlSerializer(typeof(Config));
+                    instance = serializer.Deserialize(reader) as Config;                    
+                }
+            } catch(Exception) {
+
             }
-        }
+        }    
     }
 }
