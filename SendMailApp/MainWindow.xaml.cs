@@ -60,6 +60,8 @@ namespace SendMailApp {
                         msg.Bcc.Add(item);
                     }
                 }
+
+                Config cf = Config.GetInstance();
                 sc.Host = "smtp.gmail.com";//SMTPサーバーの設定
                 sc.Port = 587;
                 sc.EnableSsl = true;
@@ -79,12 +81,7 @@ namespace SendMailApp {
         //設定画面表示
         private void btConfig_Click(object sender, RoutedEventArgs e) {
             ConfigWindow configWindow = new ConfigWindow();
-            Config cf = Config.GetInstance();
-            configWindow.tbSmtp.Text = cf.Smtp;
-            configWindow.tbUserName.Text = cf.MailAddress;
-            configWindow.tbPort.Text = cf.Port.ToString();
-            configWindow.tbPassWord.Password = cf.PassWord;
-            configWindow.cbSsl.IsChecked = cf.Ssl;
+            
             configWindow.ShowDialog();//表示            
         }
         //メインウィンドウがロードされるタイミングで呼び出される

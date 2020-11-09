@@ -20,7 +20,7 @@ namespace SendMailApp {
         public string Smtp { get; set; } //SMTPサーバー
         public string MailAddress { get; set; }//自メールアドレス（送信元）
         public string PassWord { get; set; } //パスワード
-        public int Port { get; set; }　//ポート番号
+        public int Port { get; set ; }　//ポート番号
         public bool Ssl { get; set; }　//SSL設定
         
 
@@ -58,6 +58,7 @@ namespace SendMailApp {
             this.PassWord = passWord;
             this.Port = port;
             this.Ssl = ssl;
+            
             return true;
         }
     }
