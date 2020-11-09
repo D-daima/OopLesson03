@@ -80,13 +80,16 @@ namespace SendMailApp {
         }
         //設定画面表示
         private void btConfig_Click(object sender, RoutedEventArgs e) {
-            ConfigWindow configWindow = new ConfigWindow();
-            
+            ConfigWindow configWindow = new ConfigWindow();            
             configWindow.ShowDialog();//表示            
         }
         //メインウィンドウがロードされるタイミングで呼び出される
         private void Window_Loaded(object sender, RoutedEventArgs e) {
-            Config.GetInstance();
+            Config.GetInstance().DeSerialise();
+        }
+
+        private void Window_Closed(object sender, EventArgs e) {
+            Config.GetInstance().Serialise();
         }
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace SendMailApp {
     public class Config {
@@ -22,8 +24,7 @@ namespace SendMailApp {
         public string PassWord { get; set; } //パスワード
         public int Port { get; set ; }　//ポート番号
         public bool Ssl { get; set; }　//SSL設定
-        
-
+                
         //コンストラクタ(外部からnewできないようにする)
         private Config() {
 
@@ -60,6 +61,25 @@ namespace SendMailApp {
             this.Ssl = ssl;
             
             return true;
+        }
+
+        public void Serialise() { //シリアル化
+            using(var writer = XmlWriter.Create("Config.xml")) {
+                var serializer = new XmlSerializer(instance.GetType());
+                serializer.Serialize(writer,instance);
+            }
+        }
+
+        public void DeSerialise() { //逆シリアル化
+            using(var reader = XmlReader.Create("Config.xml")) {
+                var serializer = new XmlSerializer(typeof(Config));
+                var config = serializer.Deserialize(reader) as Config;
+                Smtp = config.Smtp;
+                Port = config.Port;
+                MailAddress = config.MailAddress;
+                Ssl = config.Ssl;
+                PassWord = config.PassWord;
+            }
         }
     }
 }
