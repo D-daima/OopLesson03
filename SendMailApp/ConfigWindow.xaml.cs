@@ -42,8 +42,8 @@ namespace SendMailApp {
                     tbPassWord.Password,
                     int.Parse(tbPort.Text),
                     cbSsl.IsChecked ?? false);
-                } catch(Exception) {
-                    MessageBox.Show("ポート番号は数字を入力してください。");
+                } catch(Exception ex) {
+                    MessageBox.Show(ex.Message);
                 }
             }
             else {

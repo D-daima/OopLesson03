@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -25,13 +26,7 @@ namespace SendMailApp {
              
         SmtpClient sc = new SmtpClient();
 
-        public MainWindow() {
-            try {
-                var reader = XmlReader.Create("Config.xml");
-            } catch(Exception) {
-                ConfigWindow configWindow = new ConfigWindow();
-                configWindow.ShowDialog();
-            }
+        public MainWindow() {           
             InitializeComponent();
             sc.SendCompleted += Sc_SendCompleted;
         }
@@ -88,17 +83,32 @@ namespace SendMailApp {
         }
         //設定画面表示
         private void btConfig_Click(object sender, RoutedEventArgs e) {
-            ConfigWindow configWindow = new ConfigWindow();            
-            configWindow.ShowDialog();//表示            
+            ConfigWindowShow();//表示            
         }
+
+        private static void ConfigWindowShow() {
+            ConfigWindow configWindow = new ConfigWindow();
+            configWindow.ShowDialog();
+        }
+
         //メインウィンドウがロードされるタイミングで呼び出される
         private void Window_Loaded(object sender, RoutedEventArgs e) {
-
-            Config.GetInstance().DeSerialise();
+            try {
+                Config.GetInstance().DeSerialise();
+            } catch (FileNotFoundException){
+                ConfigWindowShow();
+            } catch(Exception ex) {
+                MessageBox.Show(ex.Message);               
+            }
+            
         }
 
         private void Window_Closed(object sender, EventArgs e) {
-            Config.GetInstance().Serialise();
+            try {
+                Config.GetInstance().Serialise();
+            } catch(Exception ex) {
+                MessageBox.Show(ex.Message);
+            }          
         }
     }
 }

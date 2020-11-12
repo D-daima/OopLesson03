@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -15,17 +16,17 @@ namespace SendMailApp {
         public static Config GetInstance() {
             if(instance == null) {
                 instance = new Config();
-            }            
+            }
             return instance;
         }
 
         public string Smtp { get; set; } //SMTPサーバー
         public string MailAddress { get; set; }//自メールアドレス（送信元）
         public string PassWord { get; set; } //パスワード
-        public int Port { get; set ; }　//ポート番号
-        public bool Ssl { get; set; }　//SSL設定
-        
-        
+        public int Port { get; set; }　//ポート番号
+        public bool Ssl { get; set; } //SSL設定
+
+
         //コンストラクタ(外部からnewできないようにする)
         private Config() {
 
@@ -54,35 +55,27 @@ namespace SendMailApp {
 
         //設定データ更新
         //public bool UpdateStatus(Config cf) {
-        public bool UpdateStatus(string smtp,string mailAddress,string passWord,int port,bool ssl) {
+        public bool UpdateStatus(string smtp, string mailAddress, string passWord, int port, bool ssl) {
             this.Smtp = smtp;
             this.MailAddress = mailAddress;
             this.PassWord = passWord;
             this.Port = port;
             this.Ssl = ssl;
-            
             return true;
         }
 
         public void Serialise() { //シリアル化
-            try {
-                using(var writer = XmlWriter.Create("Config.xml")) {
-                    var serializer = new XmlSerializer(instance.GetType());
-                    serializer.Serialize(writer, instance);
-                }
-            } catch(Exception) {
+            using(var writer = XmlWriter.Create("Config.xml")) {
+                var serializer = new XmlSerializer(instance.GetType());
+                serializer.Serialize(writer, instance);
             }
-            
         }
 
         public void DeSerialise() { //逆シリアル化
-            try {
-                using(var reader = XmlReader.Create("Config.xml")) {
-                    var serializer = new XmlSerializer(typeof(Config));
-                    instance = serializer.Deserialize(reader) as Config;                    
-                }
-            } catch(Exception) {
+            using(var reader = XmlReader.Create("Config.xml")) {
+                var serializer = new XmlSerializer(typeof(Config));
+                instance = serializer.Deserialize(reader) as Config;
             }
-        }    
+        }
     }
 }
