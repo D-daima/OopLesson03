@@ -34,6 +34,10 @@ namespace SendMailApp {
         }
         //適用（更新）
         private void btApply_Click(object sender, RoutedEventArgs e) {
+            Check();
+        }
+
+        private bool Check() {
             if(tbSmtp.Text != "" && tbPassWord.Password != "" && tbPort.Text != "" && tbSender.Text != "") {
                 try {
                     (Config.GetInstance()).UpdateStatus(
@@ -42,18 +46,20 @@ namespace SendMailApp {
                     tbPassWord.Password,
                     int.Parse(tbPort.Text),
                     cbSsl.IsChecked ?? false);
+                    return true;
                 } catch(Exception ex) {
                     MessageBox.Show(ex.Message);
+                    return false;
                 }
-            }
-            else {
+            } else {
                 MessageBox.Show("入力されていない項目があります。");
+                return false;
             }
         }
+
         //OKボタン
         private void btOk_Click(object sender, RoutedEventArgs e) {
-            btApply_Click(sender, e);//更新処理を呼び出す
-            if(tbSmtp.Text != "" && tbPassWord.Password != "" && tbPort.Text !=""  && tbSender.Text != "") {
+            if(Check() == true) {//更新処理を呼び出す
                 this.Close();
             }
         }

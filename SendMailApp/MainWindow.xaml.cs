@@ -85,7 +85,7 @@ namespace SendMailApp {
         private void btConfig_Click(object sender, RoutedEventArgs e) {
             ConfigWindowShow();//表示            
         }
-
+        //設定ボタンイベントハンドラ
         private static void ConfigWindowShow() {
             ConfigWindow configWindow = new ConfigWindow();
             configWindow.ShowDialog();
@@ -94,9 +94,9 @@ namespace SendMailApp {
         //メインウィンドウがロードされるタイミングで呼び出される
         private void Window_Loaded(object sender, RoutedEventArgs e) {
             try {
-                Config.GetInstance().DeSerialise();
+                Config.GetInstance().DeSerialise();//逆シリアル化
             } catch (FileNotFoundException){
-                ConfigWindowShow();
+                ConfigWindowShow();//ファイルが存在しないので設定画面を先に表示
             } catch(Exception ex) {
                 MessageBox.Show(ex.Message);               
             }
