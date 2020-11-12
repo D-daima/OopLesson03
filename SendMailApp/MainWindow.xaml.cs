@@ -15,15 +15,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace SendMailApp {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
     public partial class MainWindow : Window {
+             
         SmtpClient sc = new SmtpClient();
 
         public MainWindow() {
+            try {
+                var reader = XmlReader.Create("Config.xml");
+            } catch(Exception) {
+                ConfigWindow configWindow = new ConfigWindow();
+                configWindow.ShowDialog();
+            }
             InitializeComponent();
             sc.SendCompleted += Sc_SendCompleted;
         }
@@ -85,6 +93,7 @@ namespace SendMailApp {
         }
         //メインウィンドウがロードされるタイミングで呼び出される
         private void Window_Loaded(object sender, RoutedEventArgs e) {
+
             Config.GetInstance().DeSerialise();
         }
 

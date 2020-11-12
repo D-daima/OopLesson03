@@ -82,7 +82,6 @@ namespace SendMailApp {
                     instance = serializer.Deserialize(reader) as Config;                    
                 }
             } catch(Exception) {
-
             }
         }    
     }
