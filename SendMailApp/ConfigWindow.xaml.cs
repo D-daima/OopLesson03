@@ -72,8 +72,7 @@ namespace SendMailApp {
         private void btCancel_Click(object sender, RoutedEventArgs e) {
             if(ft == true) {
                 message();
-            }
-            
+            }                      
         }
         //ロード時に一度だけ呼び出される
         private void Window_Loaded(object sender, RoutedEventArgs e) {
@@ -99,6 +98,7 @@ namespace SendMailApp {
 
         private void tbUserName_TextChanged(object sender, TextChangedEventArgs e) {
             ft = true;
+            
         }
     }      
 }

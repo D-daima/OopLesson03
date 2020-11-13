@@ -64,6 +64,13 @@ namespace SendMailApp {
             return true;
         }
 
+        public bool EpualStatus(string smtp, string mailAddress, string passWord, int port, bool ssl) {
+            if(Smtp == smtp && MailAddress == mailAddress && PassWord == passWord && Port == port && Ssl == Ssl) {
+                return true;
+            }
+            return false;
+        }
+
         public void Serialise() { //シリアル化
             using(var writer = XmlWriter.Create("Config.xml")) {
                 var serializer = new XmlSerializer(instance.GetType());
