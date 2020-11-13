@@ -5,39 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SendMailApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="600" Background="AliceBlue" Loaded="Window_Loaded" Closed="Window_Closed">
-    <Grid Margin="15">
+        Title="MainWindow" Height="500" Width="800" Background="AliceBlue" Loaded="Window_Loaded" Closed="Window_Closed">
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="7*"/>
+            <RowDefinition Height="12*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="60*"/>
             <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="35*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="件名:" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontSize="20" VerticalAlignment="Center" Margin="4"/>
+        <TextBlock Text="件名:" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" FontSize="15" VerticalAlignment="Center" Margin="4"/>
         <TextBox x:Name="tbTitle" Grid.Row="0" Grid.Column="1" Margin="5"/>
 
-        <TextBlock Text="To:" Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Right" FontSize="20" VerticalAlignment="Center" Margin="4"/>
+        <TextBlock Text="To:" Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Right" FontSize="15" VerticalAlignment="Center" Margin="4"/>
         <TextBox x:Name="tbTo" Grid.Row="1" Grid.Column="1" Margin="5"/>
 
-        <TextBlock Text="Cc:" Grid.Row="2" Grid.Column="0"  HorizontalAlignment="Right" FontSize="20" VerticalAlignment="Center" Margin="4"/>
+        <TextBlock Text="Cc:" Grid.Row="2" Grid.Column="0"  HorizontalAlignment="Right" FontSize="15" VerticalAlignment="Center" Margin="4"/>
         <TextBox x:Name="tbCc" Grid.Row="2" Grid.Column="1" Margin="5"/>
 
-        <TextBlock Text="Bcc:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontSize="20" VerticalAlignment="Center" Margin="4"/>
+        <TextBlock Text="Bcc:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" FontSize="15" VerticalAlignment="Center" Margin="4"/>
         <TextBox x:Name="tbBcc" Grid.Row="3" Grid.Column="1" Margin="5"/>
 
-        <TextBlock Text="本文:" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" FontSize="20" VerticalAlignment="Top" Margin="4"/>
-        <TextBox x:Name="tbBody" Grid.Row="4" Grid.Column="1" Margin="5"/>
+        <TextBlock Text="本文:" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" FontSize="15" VerticalAlignment="Top" Margin="4"/>
+        <TextBox x:Name="tbBody" Grid.ColumnSpan="4" Grid.Row="4" Grid.Column="1" Margin="5"/>
 
-        <StackPanel Grid.ColumnSpan="2" Grid.Row="5" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
+        <TextBlock Text="添付ファイル：" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" />
+        <ListBox x:Name="addfile" Grid.Row="0" Grid.RowSpan="4" Grid.Column="3" Margin="5"/>
+        <Button x:Name="addfileBT" Grid.Row="2" Grid.Column="2" Content="追加" Margin="3"/>
+        <Button x:Name="deletefileBT" Grid.Row="3" Grid.Column="2" Content="削除" Margin="3"/>
+        
+        <StackPanel Grid.ColumnSpan="4" Grid.Row="5" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">            
             <Button x:Name="btCancel" Content="キャンセル" Width="80" Margin="4" Click="btCancel_Click"/>
             <Button x:Name="btOk" Content="送信" Width="80" Margin="4" Click="btOk_Click"/>
         </StackPanel>
-        <Button x:Name="btConfig" Grid.Row="5" Content="設定" Margin="5" Click="btConfig_Click"/>
+        <Button x:Name="btConfig" Grid.Row="5" Content="設定" Margin="4" Click="btConfig_Click"/>
     </Grid>
 </Window>
