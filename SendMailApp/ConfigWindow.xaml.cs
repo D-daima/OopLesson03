@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,6 +19,9 @@ namespace SendMailApp {
     /// ConfigWindow.xaml の相互作用ロジック
     /// </summary>
     public partial class ConfigWindow : Window {
+
+        public bool ft;
+
         public ConfigWindow() {
             InitializeComponent();
             
@@ -66,21 +70,10 @@ namespace SendMailApp {
         }
         //キャンセルボタン
         private void btCancel_Click(object sender, RoutedEventArgs e) {
-            if(Config.GetInstance().EpualStatus(
-                tbSmtp.Text,
-                tbUserName.Text,
-                tbPassWord.Password,
-                int.Parse(tbPort.Text),
-                cbSsl.IsChecked ?? false) == true) {
-                this.Close();
-            } else {
-                var result = MessageBox.Show("変更が反映されていません。","質問",MessageBoxButton.OKCancel);
-                if(result == MessageBoxResult.OK) {
-                    this.Close();
-                }else if(result == MessageBoxResult.Cancel) {
-
-                }
+            if(ft == true) {
+                message();
             }
+            
         }
         //ロード時に一度だけ呼び出される
         private void Window_Loaded(object sender, RoutedEventArgs e) {
@@ -93,5 +86,19 @@ namespace SendMailApp {
             tbPassWord.Password = cf.PassWord;
             cbSsl.IsChecked = cf.Ssl;
         }
-    }
+                
+        public void message() {
+            var result = MessageBox.Show("変更が反映されていません。", "質問", MessageBoxButton.OKCancel);
+            if(result == MessageBoxResult.OK) {
+                this.Close();
+                ft = false;
+            } else if(result == MessageBoxResult.Cancel) {
+
+            }
+        }
+
+        private void tbUserName_TextChanged(object sender, TextChangedEventArgs e) {
+            ft = true;
+        }
+    }      
 }

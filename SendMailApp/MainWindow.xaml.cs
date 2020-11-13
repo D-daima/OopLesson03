@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -64,6 +65,12 @@ namespace SendMailApp {
                     }
                 }
 
+                if(addfile.Items != null) {
+                    foreach(var item in addfile.Items) {
+                        msg.Attachments.Add(new Attachment(item.ToString()));
+                    }
+                }
+
                 Config cf = Config.GetInstance();
                 sc.Host = cf.Smtp;//SMTPサーバーの設定
                 sc.Port = cf.Port;
@@ -109,6 +116,17 @@ namespace SendMailApp {
             } catch(Exception ex) {
                 MessageBox.Show(ex.Message);
             }          
+        }
+
+        private void addfileBT_Click(object sender, RoutedEventArgs e) {
+            var fod = new OpenFileDialog();
+            if(fod.ShowDialog() == true) {
+                addfile.Items.Add(fod.FileName);
+            }
+        }
+
+        private void deletefileBT_Click(object sender, RoutedEventArgs e) {
+            addfile.Items.Clear();
         }
     }
 }
