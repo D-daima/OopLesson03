@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -34,10 +35,10 @@ namespace SendMailApp {
         }
         //適用（更新）
         private void btApply_Click(object sender, RoutedEventArgs e) {
-            Check();
+            NullCheck();//更新処理を呼び出す
         }
 
-        private bool Check() {
+        private bool NullCheck() {
             if(tbSmtp.Text != "" && tbPassWord.Password != "" && tbPort.Text != "" && tbSender.Text != "") {
                 try {
                     (Config.GetInstance()).UpdateStatus(
@@ -59,14 +60,27 @@ namespace SendMailApp {
 
         //OKボタン
         private void btOk_Click(object sender, RoutedEventArgs e) {
-            if(Check() == true) {//更新処理を呼び出す
+            if(NullCheck() == true) {
                 this.Close();
             }
         }
         //キャンセルボタン
         private void btCancel_Click(object sender, RoutedEventArgs e) {
+            if(Config.GetInstance().EpualStatus(
+                tbSmtp.Text,
+                tbUserName.Text,
+                tbPassWord.Password,
+                int.Parse(tbPort.Text),
+                cbSsl.IsChecked ?? false) == true) {
+                this.Close();
+            } else {
+                var result = MessageBox.Show("変更が反映されていません。","質問",MessageBoxButton.OKCancel);
+                if(result == MessageBoxResult.OK) {
+                    this.Close();
+                }else if(result == MessageBoxResult.Cancel) {
 
-            this.Close();
+                }
+            }
         }
         //ロード時に一度だけ呼び出される
         private void Window_Loaded(object sender, RoutedEventArgs e) {
