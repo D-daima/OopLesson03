@@ -20,7 +20,7 @@ namespace SendMailApp {
     /// </summary>
     public partial class ConfigWindow : Window {
 
-        public bool ft;
+        public bool textCheck;
 
         public ConfigWindow() {
             InitializeComponent();
@@ -51,6 +51,7 @@ namespace SendMailApp {
                     tbPassWord.Password,
                     int.Parse(tbPort.Text),
                     cbSsl.IsChecked ?? false);
+                    textCheck = false;
                     return true;
                 } catch(Exception ex) {
                     MessageBox.Show(ex.Message);
@@ -70,9 +71,11 @@ namespace SendMailApp {
         }
         //キャンセルボタン
         private void btCancel_Click(object sender, RoutedEventArgs e) {
-            if(ft == true) {
+            if(textCheck == true) {
                 message();
-            }                      
+            } else {
+                this.Close();
+            }
         }
         //ロード時に一度だけ呼び出される
         private void Window_Loaded(object sender, RoutedEventArgs e) {
@@ -84,21 +87,24 @@ namespace SendMailApp {
             } 
             tbPassWord.Password = cf.PassWord;
             cbSsl.IsChecked = cf.Ssl;
+            textCheck = false;
         }
                 
         public void message() {
             var result = MessageBox.Show("変更が反映されていません。", "質問", MessageBoxButton.OKCancel);
             if(result == MessageBoxResult.OK) {
                 this.Close();
-                ft = false;
             } else if(result == MessageBoxResult.Cancel) {
-
             }
         }
 
-        private void tbUserName_TextChanged(object sender, TextChangedEventArgs e) {
-            ft = true;
-            
+        private void tbText_TextChanged(object sender, TextChangedEventArgs e) {
+            textCheck = true;            
         }
+
+        private void tbPassWord_PasswordChanged(object sender, RoutedEventArgs e) {
+            textCheck = true;
+        }
+
     }      
 }
