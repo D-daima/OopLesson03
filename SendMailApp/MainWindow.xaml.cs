@@ -126,7 +126,9 @@ namespace SendMailApp {
         }
 
         private void deletefileBT_Click(object sender, RoutedEventArgs e) {
-            addfile.Items.Clear();
+            if(addfile.SelectedItems.Count != 0) {
+                addfile.Items.RemoveAt(addfile.SelectedIndex);
+            }               
         }
     }
 }

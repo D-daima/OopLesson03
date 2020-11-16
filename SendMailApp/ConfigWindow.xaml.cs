@@ -71,7 +71,7 @@ namespace SendMailApp {
         }
         //キャンセルボタン
         private void btCancel_Click(object sender, RoutedEventArgs e) {
-            if(textCheck == true) {
+            if(textCheck != false || Config.GetInstance().Ssl != cbSsl.IsChecked) {
                 message();
             } else {
                 this.Close();
@@ -91,7 +91,7 @@ namespace SendMailApp {
         }
                 
         public void message() {
-            var result = MessageBox.Show("変更が反映されていません。", "質問", MessageBoxButton.OKCancel);
+            var result = MessageBox.Show("変更が反映されていません。", "注意", MessageBoxButton.OKCancel,MessageBoxImage.Exclamation);
             if(result == MessageBoxResult.OK) {
                 this.Close();
             } else if(result == MessageBoxResult.Cancel) {
