@@ -44,7 +44,7 @@ namespace SendMailApp {
         //メール送信処理
         private void btOk_Click(object sender, RoutedEventArgs e) {
             try {
-                MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text);
+                MailMessage msg = new MailMessage(Config.GetInstance().MailAddress, tbTo.Text);
                 
                 msg.Subject = tbTitle.Text;//件名
                 msg.Body = tbBody.Text;//本文
@@ -77,6 +77,14 @@ namespace SendMailApp {
                 sc.EnableSsl = cf.Ssl;
                 sc.Credentials = new NetworkCredential(cf.MailAddress, cf.PassWord);
                 //sc.Send(msg);//送信
+                if(tbTitle.Text == "" && tbBody.Text == "") {
+                    var result = MessageBox.Show("件名と本文が入力させていません。", "注意", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
+                    if(result == MessageBoxResult.OK) {
+                        
+                    } else if(result == MessageBoxResult.Cancel) {
+                        return;
+                    }
+                }
                 sc.SendMailAsync(msg);
             } catch(Exception ex) {
                 MessageBox.Show(ex.Message);
